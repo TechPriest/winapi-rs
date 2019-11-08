@@ -6,7 +6,8 @@
 // except according to those terms.
 //! Minidump API set. https://docs.microsoft.com/en-us/windows/win32/api/minidumpapiset/
 
-// use shared::ntdef::{HANDLE, HRESULT, PVOID, ULONG};
+use shared::ntdef::{HANDLE, HRESULT, PVOID, ULONG, ULONG64};
+use um::winnt::CONTEXT;
 
 ENUM!{enum MINIDUMP_CALLBACK_TYPE {
     ModuleCallback,
@@ -30,5 +31,15 @@ ENUM!{enum MINIDUMP_CALLBACK_TYPE {
     VmQueryCallback,
     VmPreReadCallback,
     VmPostReadCallback,
+}}
+
+STRUCT!{struct MINIDUMP_THREAD_CALLBACK {
+    ThreadId: ULONG,
+    ThreadHandle: HANDLE,
+    Pad: ULONG,
+    Context: CONTEXT,
+    SizeOfContext: ULONG,
+    StackBase: ULONG64,
+    StackEnd: ULONG64,
 }}
 
