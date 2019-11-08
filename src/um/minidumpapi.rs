@@ -7,7 +7,8 @@
 //! Minidump API set. https://docs.microsoft.com/en-us/windows/win32/api/minidumpapiset/
 
 use shared::basetsd::ULONG64;
-use shared::ntdef::{HANDLE, HRESULT, PVOID, ULONG};
+use shared::minwindef::DWORD;
+use shared::ntdef::{HANDLE, HRESULT, PVOID, PWCHAR, ULONG};
 use um::winnt::CONTEXT;
 
 ENUM! {enum MINIDUMP_CALLBACK_TYPE {
@@ -57,5 +58,35 @@ STRUCT! {struct MINIDUMP_THREAD_EX_CALLBACK {
     BackingStoreEnd: ULONG64,  
 }}
 pub type PMINIDUMP_THREAD_EX_CALLBACK = *mut MINIDUMP_THREAD_EX_CALLBACK;
+
+STRUCT! {struct VS_FIXEDFILEINFO { 
+    dwSignature: DWORD,
+    dwStrucVersion: DWORD,
+    dwFileVersionMS: DWORD,
+    dwFileVersionLS: DWORD,
+    dwProductVersionMS: DWORD,
+    dwProductVersionLS: DWORD,
+    dwFileFlagsMask: DWORD,
+    dwFileFlags: DWORD,
+    dwFileOS: DWORD,
+    dwFileType: DWORD,
+    dwFileSubtype: DWORD,
+    dwFileDateMS: DWORD,
+    dwFileDateLS: DWORD,
+}}
+
+STRUCT! {struct MINIDUMP_MODULE_CALLBACK {
+    FullPath: PWCHAR,
+    BaseOfImage: ULONG64,
+    SizeOfImage: ULONG,
+    CheckSum: ULONG,
+    TimeDateStamp: ULONG,
+    VersionInfo: VS_FIXEDFILEINFO,
+    CvRecord: PVOID,
+    SizeOfCvRecord: ULONG,
+    MiscRecord: PVOID,
+    SizeOfMiscRecord: ULONG,
+}}
+pub type PMINIDUMP_MODULE_CALLBACK = *mut MINIDUMP_MODULE_CALLBACK;
 
 
