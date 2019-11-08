@@ -45,4 +45,17 @@ STRUCT! {struct MINIDUMP_THREAD_CALLBACK {
 }}
 pub type PMINIDUMP_THREAD_CALLBACK = *mut MINIDUMP_THREAD_CALLBACK;
 
+STRUCT! {struct MINIDUMP_THREAD_EX_CALLBACK {
+    ThreadId: ULONG,
+    ThreadHandle: HANDLE,
+    Pad: ULONG,
+    Context: CONTEXT,
+    SizeOfContext: ULONG,
+    StackBase: ULONG64,
+    StackEnd: ULONG64,  
+    BackingStoreBase: ULONG64,
+    BackingStoreEnd: ULONG64,  
+}}
+pub type PMINIDUMP_THREAD_EX_CALLBACK = *mut MINIDUMP_THREAD_EX_CALLBACK;
+
 
