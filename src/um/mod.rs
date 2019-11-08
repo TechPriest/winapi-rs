@@ -130,6 +130,7 @@ pub mod gl;
 #[cfg(feature = "lmwksta")] pub mod lmwksta;
 #[cfg(feature = "lsalookup")] pub mod lsalookup;
 #[cfg(feature = "memoryapi")] pub mod memoryapi;
+#[cfg(feature = "minidumpapi")] pub mod minidumpapi;
 #[cfg(feature = "minschannel")] pub mod minschannel;
 #[cfg(feature = "minwinbase")] pub mod minwinbase;
 #[cfg(feature = "mmdeviceapi")] pub mod mmdeviceapi;
