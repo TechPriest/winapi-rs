@@ -143,5 +143,15 @@ pub type PMINIDUMP_VM_POST_READ_CALLBACK = *mut MINIDUMP_VM_POST_READ_CALLBACK;
 UNION! {union MINIDUMP_CALLBACK_INPUT_u {
     [u32; 324],
     ProcessId ProcessId_mut: ULONG,
-    // todo: rest
+    Thread Thread_mut: MINIDUMP_THREAD_CALLBACK,
+    ThreadEx ThreadEx_mut: MINIDUMP_THREAD_EX_CALLBACK,
+    Module Module_mut: MINIDUMP_MODULE_CALLBACK,
+    IncludeThread IncludeThread_mut: MINIDUMP_INCLUDE_THREAD_CALLBACK,
+    IncludeModule IncludeModule_mut: MINIDUMP_INCLUDE_MODULE_CALLBACK,
+    Io Io_mut: MINIDUMP_IO_CALLBACK,
+    ReadMemoryFailure ReadMemoryFailure_mut: MINIDUMP_READ_MEMORY_FAILURE_CALLBACK,
+    SecondaryFlags SecondaryFlags_mut: ULONG,
+    VmQuery VmQuery_mut: MINIDUMP_VM_QUERY_CALLBACK,
+    VmPreRead VmPreRead_mut: MINIDUMP_VM_PRE_READ_CALLBACK,
+    VmPostRead VmPostRead_mut: MINIDUMP_VM_POST_READ_CALLBACK,
 }}
