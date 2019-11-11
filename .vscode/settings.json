@@ -1,3 +1,4 @@
 {
-    "rust.show_warnings": false
+    "rust.show_warnings": false,
+    "rust.cfg_test": false,
 }
