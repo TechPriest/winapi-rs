@@ -319,6 +319,9 @@ STRUCT! {struct MINIDUMP_CALLBACK_INFORMATION {
 }}
 pub type PMINIDUMP_CALLBACK_INFORMATION = *mut MINIDUMP_CALLBACK_INFORMATION;
 
+pub type RVA = DWORD;
+pub type RVA64 = ULONG64;
+
 
 extern "system" {
     pub fn MiniDumpWriteDump(hProcess: HANDLE,
