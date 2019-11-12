@@ -322,6 +322,11 @@ pub type PMINIDUMP_CALLBACK_INFORMATION = *mut MINIDUMP_CALLBACK_INFORMATION;
 pub type RVA = DWORD;
 pub type RVA64 = ULONG64;
 
+STRUCT! {struct MINIDUMP_LOCATION_DESCRIPTOR {
+    DataSize: ULONG32,
+    Rva: RVA,
+}}
+pub type PMINIDUMP_LOCATION_DESCRIPTOR = *mut MINIDUMP_LOCATION_DESCRIPTOR;
 
 extern "system" {
     pub fn MiniDumpWriteDump(hProcess: HANDLE,
