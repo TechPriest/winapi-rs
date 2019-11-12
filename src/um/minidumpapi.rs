@@ -216,3 +216,37 @@ UNION! {union MINIDUMP_CALLBACK_OUTPUT {
     Status: HRESULT,
 }}
 pub type PMINIDUMP_CALLBACK_OUTPUT = *mut MINIDUMP_CALLBACK_OUTPUT;
+
+ENUM!{ enum MINIDUMP_TYPE {
+    MiniDumpNormal,
+    MiniDumpWithDataSegs,
+    MiniDumpWithFullMemory,
+    MiniDumpWithHandleData,
+    MiniDumpFilterMemory,
+    MiniDumpScanMemory,
+    MiniDumpWithUnloadedModules,
+    MiniDumpWithIndirectlyReferencedMemory,
+    MiniDumpFilterModulePaths,
+    MiniDumpWithProcessThreadData,
+    MiniDumpWithPrivateReadWriteMemory,
+    MiniDumpWithoutOptionalData,
+    MiniDumpWithFullMemoryInfo,
+    MiniDumpWithThreadInfo,
+    MiniDumpWithCodeSegs,
+    MiniDumpWithoutAuxiliaryState,
+    MiniDumpWithFullAuxiliaryState,
+    MiniDumpWithPrivateWriteCopyMemory,
+    MiniDumpIgnoreInaccessibleMemory,
+    MiniDumpWithTokenInformation,
+    MiniDumpWithModuleHeaders,
+    MiniDumpFilterTriage,
+    MiniDumpWithAvxXStateContext,
+    MiniDumpWithIptTrace,
+    MiniDumpValidTypeFlags,
+    MiniDumpScanInaccessiblePartialPages,   
+}}
+/*
+extern "system" {
+    pub fn MiniDumpWriteDump(hProcess: HANDLE, ProcessId: DWORD, hFile: HANDLE, DumpType: MINIDUMP_TYPE, );
+}
+*/
