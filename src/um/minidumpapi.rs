@@ -313,7 +313,7 @@ STRUCT! {struct MINIDUMP_CALLBACK_INFORMATION {
 }}
 pub type PMINIDUMP_CALLBACK_INFORMATION = *mut MINIDUMP_CALLBACK_INFORMATION;
 
-/*
+
 extern "system" {
     pub fn MiniDumpWriteDump(hProcess: HANDLE,
         ProcessId: DWORD,
@@ -324,4 +324,3 @@ extern "system" {
         CallbackParam: PMINIDUMP_CALLBACK_INFORMATION
     );
 }
-*/
