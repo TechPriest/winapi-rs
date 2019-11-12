@@ -6,8 +6,8 @@
 // except according to those terms.
 //! Minidump API set. https://docs.microsoft.com/en-us/windows/win32/api/minidumpapiset/
 
-use shared::basetsd::ULONG64;
-use shared::minwindef::DWORD;
+use shared::basetsd::{ULONG32, ULONG64};
+use shared::minwindef::{BOOL, DWORD};
 use shared::ntdef::{HANDLE, HRESULT, PVOID, PWCHAR, ULONG};
 use um::winnt::CONTEXT;
 
@@ -163,3 +163,56 @@ STRUCT! {struct MINIDUMP_CALLBACK_INPUT {
     u: MINIDUMP_CALLBACK_INPUT_u,
 }}
 pub type PMINIDUMP_CALLBACK_INPUT = *mut MINIDUMP_CALLBACK_INPUT;
+
+STRUCT! {struct MINIDUMP_MEMORY_INFO {
+    BaseAddress: ULONG64,
+    AllocationBase: ULONG64,
+    AllocationProtect: ULONG32,
+    __alignment1: ULONG32,
+    RegionSize: ULONG64,
+    State: ULONG32,
+    Protect: ULONG32,
+    Type: ULONG32,
+    __alignment2: ULONG32,
+}}
+pub type PMINIDUMP_MEMORY_INFO = *mut MINIDUMP_MEMORY_INFO;
+
+STRUCT! {struct MINIDUMP_CALLBACK_OUTPUT_Memory {
+    MemoryBase: ULONG64,
+    MemorySize: ULONG,
+}}
+
+STRUCT! {struct MINIDUMP_CALLBACK_OUTPUT_Cancel {
+    CheckCancel: BOOL,
+    Cancel: BOOL,
+}}
+
+STRUCT! {struct MINIDUMP_CALLBACK_OUTPUT_VmRegion {
+    VmRegion: MINIDUMP_MEMORY_INFO,
+    Continue: BOOL,
+}}
+
+STRUCT! {struct MINIDUMP_CALLBACK_OUTPUT_VmQueryStatus {
+    VmQueryStatus: HRESULT,
+    VmQueryResult: MINIDUMP_MEMORY_INFO,
+}}
+
+STRUCT! {struct MINIDUMP_CALLBACK_OUTPUT_VmReadStatus {
+    VmReadStatus: HRESULT,
+    VmReadBytesCompleted: ULONG,
+}}
+
+UNION! {union MINIDUMP_CALLBACK_OUTPUT {
+    [u32;13],
+    ModuleWriteFlags: ULONG,
+    ThreadWriteFlags: ULONG,
+    SecondaryFlags: ULONG,
+    Memory: MINIDUMP_CALLBACK_OUTPUT_Memory,
+    Cancel: MINIDUMP_CALLBACK_OUTPUT_Cancel,
+    Handle: HANDLE,
+    VmRegion: MINIDUMP_CALLBACK_OUTPUT_VmRegion,
+    VmQueryStatus: MINIDUMP_CALLBACK_OUTPUT_VmQueryStatus,
+    VmReadStatus: MINIDUMP_CALLBACK_OUTPUT_VmReadStatus,
+    Status: HRESULT,
+}}
+pub type PMINIDUMP_CALLBACK_OUTPUT = *mut MINIDUMP_CALLBACK_OUTPUT;
