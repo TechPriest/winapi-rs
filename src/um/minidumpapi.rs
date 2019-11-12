@@ -9,7 +9,7 @@
 use shared::basetsd::{ULONG32, ULONG64};
 use shared::minwindef::{BOOL, DWORD};
 use shared::ntdef::{HANDLE, HRESULT, PVOID, PWCHAR, ULONG};
-use um::winnt::CONTEXT;
+use um::winnt::{CONTEXT, PEXCEPTION_POINTERS};
 
 ENUM! {enum MINIDUMP_CALLBACK_TYPE {
     ModuleCallback,
@@ -217,7 +217,7 @@ UNION! {union MINIDUMP_CALLBACK_OUTPUT {
 }}
 pub type PMINIDUMP_CALLBACK_OUTPUT = *mut MINIDUMP_CALLBACK_OUTPUT;
 
-ENUM!{ enum MINIDUMP_TYPE {
+ENUM! { enum MINIDUMP_TYPE {
     MiniDumpNormal,
     MiniDumpWithDataSegs,
     MiniDumpWithFullMemory,
@@ -243,10 +243,25 @@ ENUM!{ enum MINIDUMP_TYPE {
     MiniDumpWithAvxXStateContext,
     MiniDumpWithIptTrace,
     MiniDumpValidTypeFlags,
-    MiniDumpScanInaccessiblePartialPages,   
+    MiniDumpScanInaccessiblePartialPages,
 }}
+
+STRUCT! { struct MINIDUMP_EXCEPTION_INFORMATION {
+    ThreadId: DWORD,
+    ExceptionPointers: PEXCEPTION_POINTERS,
+    ClientPointers: BOOL,
+}}
+pub type PMINIDUMP_EXCEPTION_INFORMATION = *mut MINIDUMP_EXCEPTION_INFORMATION;
+
 /*
 extern "system" {
-    pub fn MiniDumpWriteDump(hProcess: HANDLE, ProcessId: DWORD, hFile: HANDLE, DumpType: MINIDUMP_TYPE, );
+    pub fn MiniDumpWriteDump(hProcess: HANDLE,
+        ProcessId: DWORD,
+        hFile: HANDLE,
+        DumpType: MINIDUMP_TYPE,
+        ExceptionParam: PMINIDUMP_EXCEPTION_INFORMATION,
+        UserStreamParam: PMINIDUMP_USER_STREAM_INFORMATION,
+        CallbackParam: PMINIDUMP_CALLBACK_INFORMATION
+    );
 }
 */
