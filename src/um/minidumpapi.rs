@@ -328,5 +328,13 @@ extern "system" {
         ExceptionParam: PMINIDUMP_EXCEPTION_INFORMATION,
         UserStreamParam: PMINIDUMP_USER_STREAM_INFORMATION,
         CallbackParam: PMINIDUMP_CALLBACK_INFORMATION
-    );
+    ) -> BOOL;
+
+    /*pub fn MiniDumpReadDumpStream(
+        BaseOfDump: PVOID,
+        StreamNumber: ULONG,
+        Dir: PMINIDUMP_DIRECTORY,
+        StreamPointer: *mut PVOID,
+        StreamSize: *mut USIZE,
+    ) -> BOOL;*/
 }
