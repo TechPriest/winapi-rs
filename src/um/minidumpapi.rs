@@ -292,7 +292,13 @@ ENUM! {enum MINIDUMP_STREAM_TYPE {
     ceStreamBucketParameters,
     ceStreamProcessModuleMap,
     ceStreamDiagnosisList,
-    LastReservedStream,    
+    LastReservedStream,
+}}
+
+STRUCT! {struct MINIDUMP_USER_STREAM {
+    Type: ULONG32,
+    BufferSize: ULONG,
+    Buffer: PVOID,
 }}
 
 /*
