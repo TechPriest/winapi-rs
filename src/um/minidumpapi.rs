@@ -7,7 +7,7 @@
 //! Minidump API set. https://docs.microsoft.com/en-us/windows/win32/api/minidumpapiset/
 
 use shared::basetsd::{ULONG32, ULONG64};
-use shared::minwindef::{BOOL, DWORD};
+use shared::minwindef::{BOOL, DWORD, USIZE};
 use shared::ntdef::{HANDLE, HRESULT, PVOID, PWCHAR, ULONG};
 use um::winnt::{CONTEXT, PEXCEPTION_POINTERS};
 
@@ -346,11 +346,11 @@ extern "system" {
         CallbackParam: PMINIDUMP_CALLBACK_INFORMATION
     ) -> BOOL;
 
-    /*pub fn MiniDumpReadDumpStream(
+    pub fn MiniDumpReadDumpStream(
         BaseOfDump: PVOID,
         StreamNumber: ULONG,
         Dir: PMINIDUMP_DIRECTORY,
         StreamPointer: *mut PVOID,
         StreamSize: *mut USIZE,
-    ) -> BOOL;*/
+    ) -> BOOL;
 }
