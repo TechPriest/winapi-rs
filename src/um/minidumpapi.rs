@@ -115,8 +115,8 @@ STRUCT! {struct MINIDUMP_READ_MEMORY_FAILURE_CALLBACK {
 pub type PMINIDUMP_READ_MEMORY_FAILURE_CALLBACK = *mut MINIDUMP_READ_MEMORY_FAILURE_CALLBACK;
 
 ENUM! {enum MINIDUMP_SECONDARY_FLAGS {
-    MiniSecondaryWithoutPowerInfo,
-    MiniSecondaryValidFlags,
+    MiniSecondaryWithoutPowerInfo = 0x00000001,
+    MiniSecondaryValidFlags       = 0x00000001,
 }}
 
 STRUCT! {struct MINIDUMP_VM_QUERY_CALLBACK {
