@@ -11,6 +11,12 @@ use shared::minwindef::{BOOL, DWORD};
 use shared::ntdef::{HANDLE, HRESULT, PVOID, PWCHAR, ULONG};
 use um::winnt::{CONTEXT, PEXCEPTION_POINTERS};
 
+pub const MINIDUMP_SIGNATURE: &'static [u8] = b"PMDM";
+pub const MINIDUMP_VERSION: DWORD = 42899;
+
+pub type RVA = DWORD;
+pub type RVA64 = ULONG64;
+
 ENUM! {enum MINIDUMP_CALLBACK_TYPE {
     ModuleCallback,
     ThreadCallback,
@@ -320,9 +326,6 @@ STRUCT! {struct MINIDUMP_CALLBACK_INFORMATION {
     CallbackParam: PVOID,
 }}
 pub type PMINIDUMP_CALLBACK_INFORMATION = *mut MINIDUMP_CALLBACK_INFORMATION;
-
-pub type RVA = DWORD;
-pub type RVA64 = ULONG64;
 
 STRUCT! {struct MINIDUMP_LOCATION_DESCRIPTOR {
     DataSize: ULONG32,
