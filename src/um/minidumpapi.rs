@@ -215,9 +215,9 @@ UNION! {union MINIDUMP_CALLBACK_OUTPUT {
     VmReadStatus: MINIDUMP_CALLBACK_OUTPUT_VmReadStatus,
     Status: HRESULT,
 }}
-pub type PMINIDUMP_CALLBACK_OUTPUT = *mut MINIDUMP_CALLBACK_OUTPUT;
+//pub type PMINIDUMP_CALLBACK_OUTPUT = *mut MINIDUMP_CALLBACK_OUTPUT;
 
-ENUM! { enum MINIDUMP_TYPE {
+ENUM! {enum MINIDUMP_TYPE {
     MiniDumpNormal,
     MiniDumpWithDataSegs,
     MiniDumpWithFullMemory,
@@ -246,12 +246,54 @@ ENUM! { enum MINIDUMP_TYPE {
     MiniDumpScanInaccessiblePartialPages,
 }}
 
-STRUCT! { struct MINIDUMP_EXCEPTION_INFORMATION {
+STRUCT! {struct MINIDUMP_EXCEPTION_INFORMATION {
     ThreadId: DWORD,
     ExceptionPointers: PEXCEPTION_POINTERS,
     ClientPointers: BOOL,
 }}
 pub type PMINIDUMP_EXCEPTION_INFORMATION = *mut MINIDUMP_EXCEPTION_INFORMATION;
+
+ENUM! {enum MINIDUMP_STREAM_TYPE {
+    UnusedStream,
+    ReservedStream0,
+    ReservedStream1,
+    ThreadListStream,
+    ModuleListStream,
+    MemoryListStream,
+    ExceptionStream,
+    SystemInfoStream,
+    ThreadExListStream,
+    Memory64ListStream,
+    CommentStreamA,
+    CommentStreamW,
+    HandleDataStream,
+    FunctionTableStream,
+    UnloadedModuleListStream,
+    MiscInfoStream,
+    MemoryInfoListStream,
+    ThreadInfoListStream,
+    HandleOperationListStream,
+    TokenStream,
+    JavaScriptDataStream,
+    SystemMemoryInfoStream,
+    ProcessVmCountersStream,
+    IptTraceStream,
+    ThreadNamesStream,
+    ceStreamNull,
+    ceStreamSystemInfo,
+    ceStreamException,
+    ceStreamModuleList,
+    ceStreamProcessList,
+    ceStreamThreadList,
+    ceStreamThreadContextList,
+    ceStreamThreadCallStackList,
+    ceStreamMemoryVirtualList,
+    ceStreamMemoryPhysicalList,
+    ceStreamBucketParameters,
+    ceStreamProcessModuleMap,
+    ceStreamDiagnosisList,
+    LastReservedStream,    
+}}
 
 /*
 extern "system" {
