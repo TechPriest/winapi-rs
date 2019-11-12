@@ -7,7 +7,7 @@
 //! Minidump API set. https://docs.microsoft.com/en-us/windows/win32/api/minidumpapiset/
 
 use shared::basetsd::{ULONG32, ULONG64};
-use shared::minwindef::{BOOL, DWORD, USIZE};
+use shared::minwindef::{BOOL, DWORD};
 use shared::ntdef::{HANDLE, HRESULT, PVOID, PWCHAR, ULONG};
 use um::winnt::{CONTEXT, PEXCEPTION_POINTERS};
 
@@ -215,7 +215,6 @@ UNION! {union MINIDUMP_CALLBACK_OUTPUT {
     VmReadStatus: MINIDUMP_CALLBACK_OUTPUT_VmReadStatus,
     Status: HRESULT,
 }}
-pub type PMINIDUMP_CALLBACK_OUTPUT = *mut MINIDUMP_CALLBACK_OUTPUT;
 
 ENUM! {enum MINIDUMP_TYPE {
     MiniDumpNormal                         = 0x00000000,
@@ -351,6 +350,6 @@ extern "system" {
         StreamNumber: ULONG,
         Dir: PMINIDUMP_DIRECTORY,
         StreamPointer: *mut PVOID,
-        StreamSize: *mut USIZE,
+        StreamSize: *mut ULONG,
     ) -> BOOL;
 }
