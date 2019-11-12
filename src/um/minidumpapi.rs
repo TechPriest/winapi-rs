@@ -203,18 +203,19 @@ STRUCT! {struct MINIDUMP_CALLBACK_OUTPUT_VmReadStatus {
 }}
 
 UNION! {union MINIDUMP_CALLBACK_OUTPUT {
-    [u32;13],
-    ModuleWriteFlags: ULONG,
-    ThreadWriteFlags: ULONG,
-    SecondaryFlags: ULONG,
-    Memory: MINIDUMP_CALLBACK_OUTPUT_Memory,
-    Cancel: MINIDUMP_CALLBACK_OUTPUT_Cancel,
-    Handle: HANDLE,
-    VmRegion: MINIDUMP_CALLBACK_OUTPUT_VmRegion,
-    VmQueryStatus: MINIDUMP_CALLBACK_OUTPUT_VmQueryStatus,
-    VmReadStatus: MINIDUMP_CALLBACK_OUTPUT_VmReadStatus,
-    Status: HRESULT,
+    [u32; 13],
+    ModuleWriteFlags ModuleWriteFlags_mut: ULONG,
+    ThreadWriteFlags ThreadWriteFlags_mut: ULONG,
+    SecondaryFlags SecondaryFlags_mut: ULONG,
+    Memory Memory_mut: MINIDUMP_CALLBACK_OUTPUT_Memory,
+    Cancel Cancel_mut: MINIDUMP_CALLBACK_OUTPUT_Cancel,
+    Handle Handle_mut: HANDLE,
+    VmRegion VmRegion_mut: MINIDUMP_CALLBACK_OUTPUT_VmRegion,
+    VmQueryStatus VmQueryStatus_mut: MINIDUMP_CALLBACK_OUTPUT_VmQueryStatus,
+    VmReadStatus VmReadStatus_mut: MINIDUMP_CALLBACK_OUTPUT_VmReadStatus,
+    Status Status_mut: HRESULT,
 }}
+pub type PMINIDUMP_CALLBACK_OUTPUT = *mut MINIDUMP_CALLBACK_OUTPUT;
 
 ENUM! {enum MINIDUMP_TYPE {
     MiniDumpNormal                         = 0x00000000,
@@ -311,7 +312,7 @@ pub type PMINIDUMP_USER_STREAM_INFORMATION = *mut MINIDUMP_USER_STREAM_INFORMATI
 
 pub type MINIDUMP_CALLBACK_ROUTINE = extern "system" fn(CallbackParam: PVOID, 
     CallbackInput: PMINIDUMP_CALLBACK_INPUT,
-    CallbackOutput: PMINIDUMP_CALLBACK_OUTPUT
+    CallbackOutput: PMINIDUMP_CALLBACK_OUTPUT,
 );
 
 STRUCT! {struct MINIDUMP_CALLBACK_INFORMATION {
