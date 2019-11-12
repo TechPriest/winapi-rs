@@ -307,6 +307,12 @@ pub type MINIDUMP_CALLBACK_ROUTINE = extern "system" fn(CallbackParam: PVOID,
     CallbackOutput: PMINIDUMP_CALLBACK_OUTPUT
 );
 
+STRUCT! {struct MINIDUMP_CALLBACK_INFORMATION {
+    CallbackRoutine: MINIDUMP_CALLBACK_ROUTINE,
+    CallbackParam: PVOID,
+}}
+pub type PMINIDUMP_CALLBACK_INFORMATION = *mut MINIDUMP_CALLBACK_INFORMATION;
+
 /*
 extern "system" {
     pub fn MiniDumpWriteDump(hProcess: HANDLE,
