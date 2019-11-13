@@ -8,7 +8,7 @@
 
 use shared::basetsd::{ULONG32, ULONG64};
 use shared::minwindef::{BOOL, DWORD};
-use shared::ntdef::{HANDLE, HRESULT, PVOID, PWCHAR, ULONG};
+use shared::ntdef::{HANDLE, HRESULT, PVOID, PWCHAR, ULONG, WCHAR};
 use um::winnt::{CONTEXT, PEXCEPTION_POINTERS};
 
 pub const MINIDUMP_SIGNATURE: &'static [u8] = b"PMDM";
@@ -291,12 +291,12 @@ ENUM! {enum MINIDUMP_STREAM_TYPE {
     ceStreamException           = 0x8002,
     ceStreamModuleList          = 0x8003,
     ceStreamProcessList         = 0x8004,
-    ceStreamThreadList          = 0x8005, 
+    ceStreamThreadList          = 0x8005,
     ceStreamThreadContextList   = 0x8006,
     ceStreamThreadCallStackList = 0x8007,
     ceStreamMemoryVirtualList   = 0x8008,
     ceStreamMemoryPhysicalList  = 0x8009,
-    ceStreamBucketParameters    = 0x800A,     
+    ceStreamBucketParameters    = 0x800A,
     ceStreamProcessModuleMap    = 0x800B,
     ceStreamDiagnosisList       = 0x800C,
 
@@ -316,7 +316,8 @@ STRUCT! {struct MINIDUMP_USER_STREAM_INFORMATION {
 }}
 pub type PMINIDUMP_USER_STREAM_INFORMATION = *mut MINIDUMP_USER_STREAM_INFORMATION;
 
-pub type MINIDUMP_CALLBACK_ROUTINE = extern "system" fn(CallbackParam: PVOID, 
+pub type MINIDUMP_CALLBACK_ROUTINE = extern "system" fn(
+    CallbackParam: PVOID,
     CallbackInput: PMINIDUMP_CALLBACK_INPUT,
     CallbackOutput: PMINIDUMP_CALLBACK_OUTPUT,
 );
@@ -374,14 +375,21 @@ STRUCT! {struct MINIDUMP_HEADER {
 }}
 pub type PMINIDUMP_HEADER = *mut MINIDUMP_HEADER;
 
+STRUCT! {struct MINIDUMP_STRING {
+    Length: ULONG32,
+    Buffer: [WCHAR; 0],
+}}
+pub type PMINIDUMP_STRING = *mut MINIDUMP_STRING;
+
 extern "system" {
-    pub fn MiniDumpWriteDump(hProcess: HANDLE,
+    pub fn MiniDumpWriteDump(
+        hProcess: HANDLE,
         ProcessId: DWORD,
         hFile: HANDLE,
         DumpType: MINIDUMP_TYPE,
         ExceptionParam: PMINIDUMP_EXCEPTION_INFORMATION,
         UserStreamParam: PMINIDUMP_USER_STREAM_INFORMATION,
-        CallbackParam: PMINIDUMP_CALLBACK_INFORMATION
+        CallbackParam: PMINIDUMP_CALLBACK_INFORMATION,
     ) -> BOOL;
 
     pub fn MiniDumpReadDumpStream(
