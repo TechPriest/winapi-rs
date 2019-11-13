@@ -381,6 +381,24 @@ STRUCT! {struct MINIDUMP_STRING {
 }}
 pub type PMINIDUMP_STRING = *mut MINIDUMP_STRING;
 
+STRUCT! {struct CPU_INFORMATION_X86CpuInfo {
+    VendorId: [ULONG32; 3],
+    VersionInformation: ULONG32,
+    FeatureInformation: ULONG32,
+    AMDExtendedCpuFeatures: ULONG32,
+}}
+
+STRUCT! {struct CPU_INFORMATION_OtherCpuInfo {
+    ProcessorFeatures: [ULONG64; 2],
+}}
+
+UNION! {union CPU_INFORMATION {
+    [u32; 6],
+    X86CpuInfo X86CpuInfo_mut: CPU_INFORMATION_X86CpuInfo,
+    OtherCpuInfo OtherCpuInfo_mut: CPU_INFORMATION_OtherCpuInfo,
+}}
+pub type PCPU_INFORMATION = *mut CPU_INFORMATION;
+
 extern "system" {
     pub fn MiniDumpWriteDump(
         hProcess: HANDLE,
