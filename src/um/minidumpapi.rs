@@ -357,6 +357,23 @@ STRUCT! {struct MINIDUMP_MEMORY_DESCRIPTOR64 {
 }}
 pub type PMINIDUMP_MEMORY_DESCRIPTOR64 = *mut MINIDUMP_MEMORY_DESCRIPTOR64;
 
+UNION! {union MINIDUMP_HEADER_u {
+    [u32; 1],
+    Reserved Reserved_mut: ULONG32,
+    TimeDateStamp TimeDateStamp_mut: ULONG32,
+}}
+
+STRUCT! {struct MINIDUMP_HEADER {
+    Signature: ULONG32,
+    Version: ULONG32,
+    NumberOfStreams: ULONG32,
+    StreamDirectoryRva: RVA,
+    CheckSum: ULONG32,
+    u: MINIDUMP_HEADER_u,
+    Flags: ULONG64,
+}}
+pub type PMINIDUMP_HEADER = *mut MINIDUMP_HEADER;
+
 extern "system" {
     pub fn MiniDumpWriteDump(hProcess: HANDLE,
         ProcessId: DWORD,
