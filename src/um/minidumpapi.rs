@@ -8,7 +8,7 @@
 
 use shared::basetsd::{ULONG32, ULONG64};
 use shared::minwindef::{BOOL, DWORD};
-use shared::ntdef::{HANDLE, HRESULT, PVOID, PWCHAR, ULONG, WCHAR};
+use shared::ntdef::{HANDLE, HRESULT, PVOID, PWCHAR, UCHAR, ULONG, USHORT, WCHAR};
 use um::winnt::{CONTEXT, PEXCEPTION_POINTERS};
 
 pub const MINIDUMP_SIGNATURE: &'static [u8] = b"PMDM";
@@ -398,6 +398,44 @@ UNION! {union CPU_INFORMATION {
     OtherCpuInfo OtherCpuInfo_mut: CPU_INFORMATION_OtherCpuInfo,
 }}
 pub type PCPU_INFORMATION = *mut CPU_INFORMATION;
+
+STRUCT! {struct MINIDUMP_SYSTEM_INFO_NumProcessorsAndProductType {
+    NumberOfProcessors: UCHAR,
+    ProductType: UCHAR,
+}}
+
+UNION! {union MINIDUMP_SYSTEM_INFO_u1 {
+    [u16; 1],
+    Reserved0 Reserved0_mut: USHORT,
+    NumProcessorsAndProductType NumProcessorsAndProductType_mut: MINIDUMP_SYSTEM_INFO_NumProcessorsAndProductType,
+}}
+
+STRUCT! {struct MINIDUMP_SYSTEM_INFO_SuiteMask {
+    SuiteMask: USHORT,
+    Reserved2: USHORT,
+}}
+
+UNION! {union MINIDUMP_SYSTEM_INFO_u2 {
+    [u32; 1],
+    Reserved1 Reserved1_mut: ULONG32,
+    SuiteMask SuiteMask_mut: MINIDUMP_SYSTEM_INFO_SuiteMask,
+}}
+
+STRUCT! {struct MINIDUMP_SYSTEM_INFO {
+    ProcessorArchitecture: USHORT,
+    ProcessorLevel: USHORT,
+    ProcessorRevision: USHORT,
+    u1: MINIDUMP_SYSTEM_INFO_u1,
+    MajorVersion: ULONG32,
+    MinorVersion: ULONG32,
+    BuildNumber: ULONG32,
+    PlatformId: ULONG32,
+    CSDVersionRva: RVA,
+    u2: MINIDUMP_SYSTEM_INFO_u2,
+    Cpu: CPU_INFORMATION,
+}}
+pub type PMINIDUMP_SYSTEM_INFO = *mut MINIDUMP_SYSTEM_INFO;
+
 
 extern "system" {
     pub fn MiniDumpWriteDump(
